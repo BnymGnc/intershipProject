@@ -69,7 +69,7 @@ export default function Passenger() {
       <h2>{index + 1}. Adult (+12)</h2>
       <form>
         <table>
-          
+          <tbody>
             <tr>
               <td colSpan="2">
                 <p>Gender</p> <p className="Reddot">*</p><br /><br />
@@ -133,7 +133,7 @@ export default function Passenger() {
                 </p>
               </td>
             </tr>
-          
+          </tbody>
         </table>
       </form>
     </div>
@@ -144,7 +144,7 @@ export default function Passenger() {
       <h1 style={{ marginLeft: '50px' }}>Passenger Information</h1>
       <div id="mainDiv">
         {[0, 1, 2].map((_, index) => renderForm(index))}
-        <button className="button" onClick={handleSubmit}>Submit</button>
+        <button className="button" onClick={handleSubmit}>Save</button>
       </div>
     </>
   );

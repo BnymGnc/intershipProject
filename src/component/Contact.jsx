@@ -1,5 +1,6 @@
-import "../css/Contact.css"
+import "../css/Contact.css";
 import React, { useState } from "react";
+
 function Contact() {
   const [errors, setErrors] = useState({
     Name: "",
@@ -51,31 +52,28 @@ function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const fields = [
-      "Name",
-      "Surname",
-      "Email",
-      "RepeatEmail",
-      "CountryCode",
-      "PhoneNumber",
-      "Country",
-      "City",
-      "Address",
-      "Zipcode",
+      "Name", "Surname", "Email", "RepeatEmail",
+      "Country", "City", "Address", "Zipcode"
     ];
 
     let tempErrors = {};
-   
 
     fields.forEach((field) => {
-      if (!document.getElementById(field)?.value.trim()) {
+      const value = document.getElementById(field)?.value.trim();
+      if (!value) {
         tempErrors[field] = `${getLabel(field)} alanını doldurunuz.`;
-   
       }
     });
 
+    const phoneValue = document.getElementById("PhoneNumber")?.value.trim();
+    if (!phoneValue) {
+      tempErrors.PhoneNumber = "Phone Number alanını doldurunuz.";
+    } else if (phoneValue.length !== 10) {
+      tempErrors.PhoneNumber = "Phone Number must be 10 digits.";
+    }
+
     if (!isChecked) {
       tempErrors.Checkbox = "You must confirm participation.";
-
     }
 
     setErrors((prev) => ({ ...prev, ...tempErrors }));
@@ -93,6 +91,9 @@ function Contact() {
     fontSize: "12px",
     minHeight: "20px",
     marginTop: "4px",
+    display: "block",
+    overflow: "hidden",
+    
   };
   const TableStyle = {
     marginLeft: "50px",
@@ -109,39 +110,31 @@ function Contact() {
         <table style={TableStyle}>
           <tbody>
             <tr>
-              <td>
-                <label htmlFor="Name">Name<span style={redStarStyle}>*</span></label>
-              </td>
-              <td>
-                <label htmlFor="Surname">Surname<span style={redStarStyle}>*</span></label>
-              </td>
+              <td><label htmlFor="Name">Name<span style={redStarStyle}>*</span></label></td>
+              <td><label htmlFor="Surname">Surname<span style={redStarStyle}>*</span></label></td>
             </tr>
             <tr>
               <td>
                 <input id="Name" type="text" onChange={(e) => handleChange("Name", e.target.value)} style={inputStyle} />
-                <div style={errorStyle}>{errors.Name}</div>
+                <div style={errorStyle}>{errors.Name || "\u00A0"}</div>
               </td>
               <td>
                 <input id="Surname" type="text" onChange={(e) => handleChange("Surname", e.target.value)} style={inputStyle} />
-                <div style={errorStyle}>{errors.Surname}</div>
+                <div style={errorStyle}>{errors.Surname || "\u00A0"}</div>
               </td>
             </tr>
             <tr>
-              <td>
-                <label htmlFor="Email">E-mail<span style={redStarStyle}>*</span></label>
-              </td>
-              <td>
-                <label htmlFor="RepeatEmail">Repeat E-mail<span style={redStarStyle}>*</span></label>
-              </td>
+              <td><label htmlFor="Email">E-mail<span style={redStarStyle}>*</span></label></td>
+              <td><label htmlFor="RepeatEmail">Repeat E-mail<span style={redStarStyle}>*</span></label></td>
             </tr>
             <tr>
               <td>
                 <input id="Email" type="email" onChange={(e) => handleChange("Email", e.target.value)} style={inputStyle} />
-                <div style={errorStyle}>{errors.Email}</div>
+                <div style={errorStyle}>{errors.Email || "\u00A0"}</div>
               </td>
               <td>
                 <input id="RepeatEmail" type="email" onChange={(e) => handleChange("RepeatEmail", e.target.value)} style={inputStyle} />
-                <div style={errorStyle}>{errors.RepeatEmail}</div>
+                <div style={errorStyle}>{errors.RepeatEmail || "\u00A0"}</div>
               </td>
             </tr>
             <tr>
@@ -149,9 +142,7 @@ function Contact() {
                 <label htmlFor="CountryCode">Country Code<span style={redStarStyle}>*</span></label>
                 <label htmlFor="PhoneNumber" style={{ marginLeft: "20px" }}>Phone Number<span style={redStarStyle}>*</span></label>
               </td>
-              <td>
-                <label htmlFor="Country">Country<span style={redStarStyle}>*</span></label>
-              </td>
+              <td><label htmlFor="Country">Country<span style={redStarStyle}>*</span></label></td>
             </tr>
             <tr>
               <td>
@@ -162,10 +153,7 @@ function Contact() {
                   <option value="+70">+70</option>
                 </select>
                 <input id="PhoneNumber" type="number" onChange={(e) => handleChange("PhoneNumber", e.target.value)} style={{ ...inputStyle, width: "350px" }} />
-                <div style={errorStyle}>
-                  {errors.CountryCode && <div>{errors.CountryCode}</div>}
-                  {errors.PhoneNumber && <div>{errors.PhoneNumber}</div>}
-                </div>
+                <div style={errorStyle}>{errors.PhoneNumber || "\u00A0"}</div>
               </td>
               <td>
                 <select id="Country" onChange={(e) => handleChange("Country", e.target.value)} style={{ ...inputStyle, width: "475px" }} defaultValue="">
@@ -174,37 +162,31 @@ function Contact() {
                   <option value="USA">USA</option>
                   <option value="Germany">Germany</option>
                 </select>
-                <div style={errorStyle}>{errors.Country}</div>
+                <div style={errorStyle}>{errors.Country || "\u00A0"}</div>
               </td>
             </tr>
             <tr>
-              <td>
-                <label htmlFor="City">City<span style={redStarStyle}>*</span></label>
-              </td>
-              <td>
-                <label htmlFor="Address">Address<span style={redStarStyle}>*</span></label>
-              </td>
+              <td><label htmlFor="City">City<span style={redStarStyle}>*</span></label></td>
+              <td><label htmlFor="Address">Address<span style={redStarStyle}>*</span></label></td>
             </tr>
             <tr>
               <td>
                 <input id="City" type="text" onChange={(e) => handleChange("City", e.target.value)} style={inputStyle} />
-                <div style={errorStyle}>{errors.City}</div>
+                <div style={errorStyle}>{errors.City || "\u00A0"}</div>
               </td>
               <td>
                 <input id="Address" type="text" onChange={(e) => handleChange("Address", e.target.value)} style={inputStyle} />
-                <div style={errorStyle}>{errors.Address}</div>
+                <div style={errorStyle}>{errors.Address || "\u00A0"}</div>
               </td>
             </tr>
             <tr>
-              <td>
-                <label htmlFor="Zipcode">Zipcode<span style={redStarStyle}>*</span></label>
-              </td>
+              <td><label htmlFor="Zipcode">Zipcode<span style={redStarStyle}>*</span></label></td>
               <td></td>
             </tr>
             <tr>
               <td>
                 <input id="Zipcode" type="text" onChange={(e) => handleChange("Zipcode", e.target.value)} style={{ ...inputStyle, width: "250px" }} />
-                <div style={errorStyle}>{errors.Zipcode}</div>
+                <div style={errorStyle}>{errors.Zipcode || "\u00A0"}</div>
               </td>
               <td style={{ textAlign: "right" }}>
                 <button type="submit" className="save-button">Save</button>
@@ -216,7 +198,7 @@ function Contact() {
                   <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} style={{ marginRight: "8px" }} />
                   I am participating in the journey myself
                 </label>
-                <div style={errorStyle}>{errors.Checkbox}</div>
+                <div style={errorStyle}>{errors.Checkbox || "\u00A0"}</div>
               </td>
             </tr>
           </tbody>
@@ -226,4 +208,4 @@ function Contact() {
   );
 }
 
-export default Contact
+export default Contact;
