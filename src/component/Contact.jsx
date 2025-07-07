@@ -77,6 +77,8 @@ function Contact() {
     }
 
     setErrors((prev) => ({ ...prev, ...tempErrors }));
+    if (Object.keys(tempErrors).length === 0) {
+    console.log("Contact doldurulmuştur");}
   };
 
   const redStarStyle = { color: "red", marginLeft: "2px" };
@@ -115,7 +117,7 @@ function Contact() {
             </tr>
             <tr>
               <td>
-                <input id="Name" type="text" onChange={(e) => handleChange("Name", e.target.value)} style={inputStyle} />
+                <input id="Name" type="text" onChange={(e) => handleChange("Name", e.target.value)} style={inputStyle}  />
                 <div style={errorStyle}>{errors.Name || "\u00A0"}</div>
               </td>
               <td>

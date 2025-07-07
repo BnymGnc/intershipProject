@@ -24,45 +24,53 @@ export default function Passenger() {
     }))
   );
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+ const handleSubmit = (e) => {
+  e.preventDefault();
 
-    const newErrors = [];
-    const passengers = [];
+  const newErrors = [];
+  const passengers = [];
 
-    for (let i = 0; i < passengerCount; i++) {
-      const gender = genderRefs[i][0].current.checked
-        ? 'male'
-        : genderRefs[i][1].current.checked
-        ? 'female'
-        : null;
+  for (let i = 0; i < passengerCount; i++) {
+    const gender = genderRefs[i][0].current.checked
+      ? 'male'
+      : genderRefs[i][1].current.checked
+      ? 'female'
+      : null;
 
-      const name = nameRefs[i].current.value.trim();
-      const surname = surnameRefs[i].current.value.trim();
-      const nationality = nationalityRefs[i].current.value.trim();
-      const birth = birthRefs[i].current.value.trim();
+    const name = nameRefs[i].current.value.trim();
+    const surname = surnameRefs[i].current.value.trim();
+    const nationality = nationalityRefs[i].current.value.trim();
+    const birth = birthRefs[i].current.value.trim();
 
-      newErrors.push({
-        gender: !gender,
-        name: !name,
-        surname: !surname,
-        nationality: !nationality,
-        birth: !birth,
-      });
+    const passengerError = {
+      gender: !gender,
+      name: !name,
+      surname: !surname,
+      nationality: !nationality,
+      birth: !birth,
+    };
 
-      passengers.push({
-        gender: gender || null,
-        name: name || null,
-        surname: surname || null,
-        nationality: nationality || null,
-        birth: birth || null,
-      });
+    newErrors.push(passengerError);
+
+    passengers.push({
+      gender: gender || null,
+      name: name || null,
+      surname: surname || null,
+      nationality: nationality || null,
+      birth: birth || null,
+    });
+
+ 
+    const hasError = Object.values(passengerError).some((err) => err);
+    if (!hasError) {
+      console.log(`${i + 1}. yolcu bilgileri doldurulmuştur.`);
     }
+  }
 
-    setErrors(newErrors);
+  setErrors(newErrors);
 
-    console.log( JSON.stringify(passengers, null, 2));
-  };
+  console.log(JSON.stringify(passengers, null, 2));
+};
 
   const renderForm = (index) => (
     <div key={index}>
